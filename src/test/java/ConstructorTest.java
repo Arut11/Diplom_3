@@ -1,23 +1,28 @@
-import io.qameta.allure.Description;
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import pages.MainPage;
 import java.util.concurrent.TimeUnit;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ConstructorTest {
 
     private WebDriver driver;
     private MainPage mainPage;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         driver = BaseTest.getDriver("chrome");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        driver.quit();
     }
 
     @Test
@@ -27,7 +32,7 @@ public class ConstructorTest {
         mainPage.open();
         mainPage.clickFillingsButton();
         mainPage.clickBunsButton();
-        Assert.assertEquals("Булки", mainPage.getTextFromSelectedMenu());
+        assertEquals("Булки", mainPage.getTextFromSelectedMenu());
     }
 
     @Test
@@ -37,23 +42,17 @@ public class ConstructorTest {
         mainPage.open();
         mainPage.clickFillingsButton();
         mainPage.clickSaucesButton();
-        Assert.assertEquals("Соусы", mainPage.getTextFromSelectedMenu());
+        assertEquals("Соусы", mainPage.getTextFromSelectedMenu());
     }
 
     @Test
     @DisplayName("Проверка перехода к разделу 'Начинки'")
-    @Description("Checking if the button is selected by getting the text")
     public void menuFillingIsActiveByClick() {
         mainPage = new MainPage(driver);
         mainPage.open();
         mainPage.clickSaucesButton();
         mainPage.clickFillingsButton();
-        Assert.assertEquals("Начинки", mainPage.getTextFromSelectedMenu());
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
+        assertEquals("Начинки", mainPage.getTextFromSelectedMenu());
     }
 
 }

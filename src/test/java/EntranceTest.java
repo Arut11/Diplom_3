@@ -1,11 +1,12 @@
 
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.PasswordRecoveryPage;
 import pages.RegistrationPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EntranceTest extends BaseTest {
 
@@ -18,7 +19,7 @@ public class EntranceTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.enterEmailAndPassword(user);
         loginPage.clickSignInButton();
-        Assert.assertTrue(mainPage.isMainPageOpen());
+        assertTrue(mainPage.isMainPageOpen());
     }
 
     @Test
@@ -30,7 +31,7 @@ public class EntranceTest extends BaseTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.enterEmailAndPassword(user);
         loginPage.clickSignInButton();
-        Assert.assertTrue(mainPage.isMainPageOpen());
+        assertTrue(mainPage.isMainPageOpen());
     }
 
     @Test
@@ -44,7 +45,7 @@ public class EntranceTest extends BaseTest {
         loginPage.enterEmailAndPassword(user);
         loginPage.clickSignInButton();
         MainPage mainPage = new MainPage(driver);
-        Assert.assertTrue(mainPage.isMainPageOpen());
+        assertTrue(mainPage.isMainPageOpen());
     }
 
     @Test
@@ -57,7 +58,7 @@ public class EntranceTest extends BaseTest {
         loginPage.enterEmailAndPassword(user);
         loginPage.clickSignInButton();
         MainPage mainPage = new MainPage(driver);
-        Assert.assertTrue(mainPage.isMainPageOpen());
+        assertTrue(mainPage.isMainPageOpen());
 
     }
 

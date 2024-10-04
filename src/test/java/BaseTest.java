@@ -4,8 +4,8 @@ import api.User;
 import api.UserClient;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import io.restassured.response.ValidatableResponse;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -20,7 +20,7 @@ public class BaseTest {
     public String accessToken;
     public User user;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         driver = getDriver("chrome");
         driver.manage().window().maximize();
@@ -31,7 +31,7 @@ public class BaseTest {
         accessToken = userClient.getAccessToken(validatableResponse);
     }
 
-    @After
+    @AfterEach
     public void close() {
         userClient.deletingUsersAfterTests(accessToken);
         driver.quit();

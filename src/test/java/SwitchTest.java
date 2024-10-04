@@ -1,10 +1,10 @@
 
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.ProfilePage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SwitchTest extends BaseTest {
 
@@ -15,7 +15,7 @@ public class SwitchTest extends BaseTest {
         mainPage.open();
         mainPage.clickAccountButton();
         LoginPage loginPage = new LoginPage(driver);
-        Assert.assertTrue(loginPage.isLoginIndicatorDisplayed());
+        assertTrue(loginPage.isLoginIndicatorDisplayed());
     }
 
     @Test
@@ -29,7 +29,7 @@ public class SwitchTest extends BaseTest {
         loginPage.clickSignInButton();
         ProfilePage profilePage = new ProfilePage(driver);
         profilePage.clickConstructorButton();
-        Assert.assertTrue(mainPage.isBurgerInscriptionDisplayed());
+        assertTrue(mainPage.isBurgerInscriptionDisplayed());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class SwitchTest extends BaseTest {
         loginPage.clickSignInButton();
         ProfilePage profilePage = new ProfilePage(driver);
         profilePage.clickLogoButton();
-        Assert.assertTrue(mainPage.isBurgerInscriptionDisplayed());
+        assertTrue(mainPage.isBurgerInscriptionDisplayed());
     }
 
 }

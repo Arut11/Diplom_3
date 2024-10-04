@@ -1,10 +1,10 @@
 
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.ProfilePage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LogoutTest extends BaseTest {
 
@@ -20,7 +20,7 @@ public class LogoutTest extends BaseTest {
         mainPage.clickAccountButton();
         ProfilePage profilePage = new ProfilePage(driver);
         profilePage.clickLogoutButton();
-        Assert.assertTrue(loginPage.isLoginIndicatorDisplayed());
+        assertTrue(loginPage.isLoginIndicatorDisplayed());
     }
 
 }

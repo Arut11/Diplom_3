@@ -1,31 +1,39 @@
 import api.User;
 import api.UserClient;
 import api.UserCredentials;
-import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.RegistrationPage;
-
 import java.util.concurrent.TimeUnit;
-
 import static constants.RandomData.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RegistrationTest {
 
     private WebDriver driver;
     private User user;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         driver = BaseTest.getDriver("chrome");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        UserClient userClient = new UserClient();
+        UserCredentials credentials = new UserCredentials(user.getEmail(), user.getPassword());
+        ValidatableResponse responseLogin = userClient.login(credentials);
+        String accessToken = userClient.getAccessToken(responseLogin);
+        userClient.deletingUsersAfterTests(accessToken);
+        driver.quit();
     }
 
     @Test
@@ -40,7 +48,7 @@ public class RegistrationTest {
         loginPage.enterEmailAndPassword(user);
         loginPage.clickSignInButton();
         MainPage mainPage = new MainPage(driver);
-        Assert.assertTrue(mainPage.isMainPageOpen());
+        assertTrue(mainPage.isMainPageOpen());
     }
 
     @Test
@@ -56,7 +64,7 @@ public class RegistrationTest {
         loginPage.enterEmailAndPassword(user);
         loginPage.clickSignInButton();
         MainPage mainPage = new MainPage(driver);
-        Assert.assertTrue(mainPage.isMainPageOpen());
+        assertTrue(mainPage.isMainPageOpen());
     }
 
     @Test
@@ -73,7 +81,7 @@ public class RegistrationTest {
         registrationPage.clickRegister();
         loginPage.enterEmailAndPassword(user);
         loginPage.clickSignInButton();
-        Assert.assertTrue(mainPage.isMainPageOpen());
+        assertTrue(mainPage.isMainPageOpen());
     }
 
     @Test
@@ -83,18 +91,7 @@ public class RegistrationTest {
         RegistrationPage registrationPage = new RegistrationPage(driver);
         registrationPage.open();
         registrationPage.registerUser(user);
-        Assert.assertTrue(registrationPage.isWrongPasswordDisplayed());
+        assertTrue(registrationPage.isWrongPasswordDisplayed());
     }
-
-    @After
-    public void tearDown() {
-        UserClient userClient = new UserClient();
-        UserCredentials credentials = new UserCredentials(user.getEmail(), user.getPassword());
-        ValidatableResponse responseLogin = userClient.login(credentials);
-        String accessToken = userClient.getAccessToken(responseLogin);
-        userClient.deletingUsersAfterTests(accessToken);
-        driver.quit();
-    }
-
 
 }

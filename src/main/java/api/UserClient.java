@@ -40,7 +40,9 @@ public class UserClient extends RestClient {
 
     @Step("Получение токена пользователя")
     public String getAccessToken(ValidatableResponse validatableResponse) {
-        return validatableResponse.extract().path("accessToken");
+        return validatableResponse
+                .extract()
+                .path("accessToken");
     }
 
     @Step("Удаление возможных пользователей после тестирования")
